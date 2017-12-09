@@ -34,7 +34,7 @@ class PostTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'Leftaro.App.Model.Leftaro.App.Model.Map.PostTableMap';
+    const CLASS_NAME = 'Leftaro.App.Model.Map.PostTableMap';
 
     /**
      * The default database name for this class
@@ -49,12 +49,12 @@ class PostTableMap extends TableMap
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Post';
+    const OM_CLASS = '\\Leftaro\\App\\Model\\Post';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Leftaro.App.Model.Leftaro.App.Model.Post';
+    const CLASS_DEFAULT = 'Leftaro.App.Model.Post';
 
     /**
      * The total number of columns
@@ -162,8 +162,8 @@ class PostTableMap extends TableMap
         $this->setName('post');
         $this->setPhpName('Post');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Post');
-        $this->setPackage('Leftaro.App.Model.Leftaro.App.Model');
+        $this->setClassName('\\Leftaro\\App\\Model\\Post');
+        $this->setPackage('Leftaro.App.Model');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, 10, null);
@@ -182,7 +182,7 @@ class PostTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('User', '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\User', RelationMap::MANY_TO_ONE, array (
+        $this->addRelation('User', '\\Leftaro\\App\\Model\\User', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':user_id',

@@ -22,4 +22,8 @@ return [
 			\Leftaro\App\Middleware\LoggerMiddleware::class,
 		],
 	],
+	'command_namespaces' => [
+		'Leftaro\\App\\Command\\',
+		'Leftaro\\App\\Command\\Post\\',
+	]
 ];

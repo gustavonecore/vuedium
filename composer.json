@@ -18,7 +18,9 @@
 		"twig/twig": "^2.4",
 		"doctrine/dbal": "^2.5",
 		"gustavonecore/php-sanitizer": "^1.0@dev",
-		"propel/propel": "^2.0@alpha"
+		"propel/propel": "^2.0@alpha",
+		"league/tactician": "^1.0",
+		"cocur/slugify": "^3.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.3"

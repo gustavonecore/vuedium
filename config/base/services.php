@@ -5,6 +5,8 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Configuration;
 use FastRoute\Dispatcher;
 use Interop\Container\ContainerInterface;
+use Leftaro\App\Hex\ClassNameExtractor;
+use Leftaro\App\Hex\CommandBus;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Noodlehaus\Config;
@@ -74,5 +76,34 @@ return [
 	'dispatcher' => function(ContainerInterface $container)
 	{
 		return $container->get(Dispatcher::class);
+	},
+
+	'command_handler_middleware' => function($container)
+	{
+		return new CommandHandlerMiddleware(
+			new ClassNameExtractor,
+			new CallableLocator(function($className) use ($container)
+			{
+				$handler = $container->make(str_replace('Command', 'Handler', $className));
+
+				if ($handler instanceof LoggerAwareInterface)
+				{
+					$handler->setLogger($container->get('logger'));
+				}
+
+				return $handler;
+			}),
+			new HandleInflector
+		);
+	},
+
+	CommandBus::class => function(ContainerInterface $container)
+	{
+		return $container->get('bus');
+	},
+
+	'bus' => function(ContainerInterface $container)
+	{
+		return new CommandBus([$container->get('command_handler_middleware')], $container);
 	},
 ];

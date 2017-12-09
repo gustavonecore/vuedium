@@ -16,5 +16,19 @@ use Leftaro\App\Model\Base\User as BaseUser;
  */
 class User extends BaseUser
 {
-
+	/**
+	 * Map the data to the proper form
+	 *
+	 * @return array
+	 */
+	public function map() : array
+	{
+		return [
+			'id' => $this->getId(),
+			'fidrt_name' => $this->getFirstName(),
+			'last_name' => $this->getLastName(),
+			'email' => $this->getEmail(),
+			'created_dt' => $this->getCreatedDt(),
+		];
+	}
 }

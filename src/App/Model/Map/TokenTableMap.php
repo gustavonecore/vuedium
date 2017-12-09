@@ -34,7 +34,7 @@ class TokenTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'Leftaro.App.Model.Leftaro.App.Model.Map.TokenTableMap';
+    const CLASS_NAME = 'Leftaro.App.Model.Map.TokenTableMap';
 
     /**
      * The default database name for this class
@@ -49,12 +49,12 @@ class TokenTableMap extends TableMap
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Token';
+    const OM_CLASS = '\\Leftaro\\App\\Model\\Token';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Leftaro.App.Model.Leftaro.App.Model.Token';
+    const CLASS_DEFAULT = 'Leftaro.App.Model.Token';
 
     /**
      * The total number of columns
@@ -152,8 +152,8 @@ class TokenTableMap extends TableMap
         $this->setName('token');
         $this->setPhpName('Token');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Token');
-        $this->setPackage('Leftaro.App.Model.Leftaro.App.Model');
+        $this->setClassName('\\Leftaro\\App\\Model\\Token');
+        $this->setPackage('Leftaro.App.Model');
         $this->setUseIdGenerator(false);
         // columns
         $this->addPrimaryKey('id', 'Id', 'CHAR', true, 22, null);
@@ -170,7 +170,7 @@ class TokenTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('User', '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\User', RelationMap::MANY_TO_ONE, array (
+        $this->addRelation('User', '\\Leftaro\\App\\Model\\User', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':user_id',

@@ -34,7 +34,7 @@ class UserTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'Leftaro.App.Model.Leftaro.App.Model.Map.UserTableMap';
+    const CLASS_NAME = 'Leftaro.App.Model.Map.UserTableMap';
 
     /**
      * The default database name for this class
@@ -49,12 +49,12 @@ class UserTableMap extends TableMap
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\User';
+    const OM_CLASS = '\\Leftaro\\App\\Model\\User';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Leftaro.App.Model.Leftaro.App.Model.User';
+    const CLASS_DEFAULT = 'Leftaro.App.Model.User';
 
     /**
      * The total number of columns
@@ -142,8 +142,8 @@ class UserTableMap extends TableMap
         $this->setName('user');
         $this->setPhpName('User');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\User');
-        $this->setPackage('Leftaro.App.Model.Leftaro.App.Model');
+        $this->setClassName('\\Leftaro\\App\\Model\\User');
+        $this->setPackage('Leftaro.App.Model');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, 10, null);
@@ -158,14 +158,14 @@ class UserTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Post', '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Post', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('Post', '\\Leftaro\\App\\Model\\Post', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':user_id',
     1 => ':id',
   ),
 ), null, null, 'Posts', false);
-        $this->addRelation('Token', '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Token', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('Token', '\\Leftaro\\App\\Model\\Token', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':user_id',

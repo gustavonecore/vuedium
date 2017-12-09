@@ -33,14 +33,14 @@ use Propel\Runtime\Util\PropelDateTime;
  *
  *
  *
- * @package    propel.generator.Leftaro.App.Model.Leftaro.App.Model.Base
+ * @package    propel.generator.Leftaro.App.Model.Base
  */
 abstract class User implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Map\\UserTableMap';
+    const TABLE_MAP = '\\Leftaro\\App\\Model\\Map\\UserTableMap';
 
 
     /**
@@ -585,7 +585,7 @@ abstract class User implements ActiveRecordInterface
             return $startcol + 5; // 5 = UserTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\User'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Leftaro\\App\\Model\\User'), 0, $e);
         }
     }
 

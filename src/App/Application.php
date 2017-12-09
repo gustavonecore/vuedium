@@ -3,6 +3,7 @@
 use Exception;
 use Leftaro\Core\Application as LeftaroApplication;
 use Leftaro\Core\Exception\NotFoundException;
+use Leftaro\App\Exception\ApiException;
 use Propel\Runtime\Propel;
 use Propel\Runtime\Connection\ConnectionManagerSingle;
 use Psr\Container\ContainerInterface;
@@ -55,6 +56,14 @@ class Application extends LeftaroApplication
 				'title' => 'Page not found',
 				'description' => 'The requested page "' . $e->getRequest()->getUri()->getPAth() . '" was not found',
 			]), 404);
+		}
+
+		if ($e instanceof ApiException)
+		{
+			return new JsonResponse([
+				'error' => $e->getMessage(),
+				'code' => $e->getCode(),
+			], $e->getHttpCode());
 		}
 
         return parent::handleException($e, $request);

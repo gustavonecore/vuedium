@@ -16,5 +16,21 @@ use Leftaro\App\Model\Base\Post as BasePost;
  */
 class Post extends BasePost
 {
-
+	/**
+	 * Map the data to the proper form
+	 *
+	 * @return array
+	 */
+	public function map() : array
+	{
+		return [
+			'id' => $this->getId(),
+			'title' => $this->getTitle(),
+			'description' => $this->getDescription(),
+			'slug' => $this->getSlug(),
+			'created_dt' => $this->getCreatedDt(),
+			'published_dt' => $this->getPublishedDt(),
+			'deleted_dt' => $this->getDeletedDt(),
+		];
+	}
 }

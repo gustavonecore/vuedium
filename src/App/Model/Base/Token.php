@@ -27,14 +27,14 @@ use Propel\Runtime\Util\PropelDateTime;
  *
  *
  *
- * @package    propel.generator.Leftaro.App.Model.Leftaro.App.Model.Base
+ * @package    propel.generator.Leftaro.App.Model.Base
  */
 abstract class Token implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Map\\TokenTableMap';
+    const TABLE_MAP = '\\Leftaro\\App\\Model\\Map\\TokenTableMap';
 
 
     /**
@@ -688,7 +688,7 @@ abstract class Token implements ActiveRecordInterface
             return $startcol + 7; // 7 = TokenTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Leftaro\\App\\Model\\Leftaro\\App\\Model\\Token'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Leftaro\\App\\Model\\Token'), 0, $e);
         }
     }
 
