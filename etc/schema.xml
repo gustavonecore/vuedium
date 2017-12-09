@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" namespace="Leftaro\App\Model" defaultPhpNamingMethod="underscore">
+  <table name="post" idMethod="native" phpName="Post" namespace="Leftaro\App\Model">
+    <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="slug" phpName="Slug" type="VARCHAR" size="500" required="true"/>
+    <column name="title" phpName="Title" type="VARCHAR" size="255" required="true"/>
+    <column name="description" phpName="Description" type="LONGVARCHAR" required="true"/>
+    <column name="published_dt" phpName="PublishedDt" type="TIMESTAMP"/>
+    <column name="created_dt" phpName="CreatedDt" type="TIMESTAMP" required="true"/>
+    <column name="updated_dt" phpName="UpdatedDt" type="TIMESTAMP"/>
+    <column name="deleted_dt" phpName="DeletedDt" type="TIMESTAMP"/>
+    <column name="user_id" phpName="UserId" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <foreign-key foreignTable="user" name="fk_post_user1">
+      <reference local="user_id" foreign="id"/>
+    </foreign-key>
+    <index name="fk_post_user1_idx">
+      <index-column name="user_id"/>
+    </index>
+    <unique name="slug_UNIQUE">
+      <unique-column name="slug"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="token" idMethod="native" phpName="Token" namespace="Leftaro\App\Model">
+    <column name="id" phpName="Id" type="CHAR" size="22" primaryKey="true" required="true"/>
+    <column name="type" phpName="Type" type="VARCHAR" size="10" required="true" defaultValue="access"/>
+    <column name="details" phpName="Details" type="LONGVARCHAR"/>
+    <column name="expire_dt" phpName="ExpireDt" type="TIMESTAMP" required="true"/>
+    <column name="created_dt" phpName="CreatedDt" type="TIMESTAMP" required="true"/>
+    <column name="updated_dt" phpName="UpdatedDt" type="TIMESTAMP"/>
+    <column name="user_id" phpName="UserId" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <foreign-key foreignTable="user" name="fk_token_user">
+      <reference local="user_id" foreign="id"/>
+    </foreign-key>
+    <index name="fk_token_user_idx">
+      <index-column name="user_id"/>
+    </index>
+    <unique name="id_UNIQUE">
+      <unique-column name="id"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="user" idMethod="native" phpName="User" namespace="Leftaro\App\Model">
+    <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="first_name" phpName="FirstName" type="VARCHAR" size="45" required="true"/>
+    <column name="last_name" phpName="LastName" type="VARCHAR" size="45"/>
+    <column name="email" phpName="Email" type="VARCHAR" size="50" required="true"/>
+    <column name="created_dt" phpName="CreatedDt" type="TIMESTAMP"/>
+    <unique name="email_UNIQUE">
+      <unique-column name="email"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+</database>

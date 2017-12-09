@@ -12,9 +12,9 @@ if (preg_match('/\.(?:png|jpg|jpeg|gif|css|js|map|woff2|woff|ttf)$/', $_SERVER["
 
 $container = require __DIR__ . '/../config/local/container.php';
 
-$application = new \Leftaro\Core\Application($container);
+$application = new \Leftaro\App\Application($container);
 
-$application->setRoutingPoligy(\Leftaro\Core\Application::ROUTING_FIXED);
+$application->loadOrm();
 
 $application->run(\Zend\Diactoros\ServerRequestFactory::fromGlobals(
     $_SERVER,

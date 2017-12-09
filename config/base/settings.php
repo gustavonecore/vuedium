@@ -2,7 +2,7 @@
 return [
 	'host' => 'http://0.0.0.0:8000/',
 	'database' => [
-		'dbname' => 'lab465_smartcash',
+		'dbname' => 'vuedium',
 		'user' => 'root',
 		'password' => 'root',
 		'host' => 'localhost',
