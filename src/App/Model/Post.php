@@ -3,6 +3,7 @@
 namespace Leftaro\App\Model;
 
 use Leftaro\App\Model\Base\Post as BasePost;
+use Leftaro\App\DateFormatTrait;
 
 /**
  * Skeleton subclass for representing a row from the 'post' table.
@@ -16,6 +17,8 @@ use Leftaro\App\Model\Base\Post as BasePost;
  */
 class Post extends BasePost
 {
+	use DateFormatTrait;
+
 	/**
 	 * Map the data to the proper form
 	 *
@@ -28,10 +31,10 @@ class Post extends BasePost
 			'title' => $this->getTitle(),
 			'description' => $this->getDescription(),
 			'slug' => $this->getSlug(),
-			'created_dt' => $this->getCreatedDt(),
-			'updated_dt' => $this->getUpdatedDt(),
-			'published_dt' => $this->getPublishedDt(),
-			'deleted_dt' => $this->getDeletedDt(),
+			'created_dt' => $this->toW3cDate($this->getCreatedDt()),
+			'updated_dt' => $this->toW3cDate($this->getUpdatedDt()),
+			'published_dt' => $this->toW3cDate($this->getPublishedDt()),
+			'deleted_dt' => $this->toW3cDate($this->getDeletedDt()),
 			'user_id' => $this->getUserId(),
 		];
 	}
