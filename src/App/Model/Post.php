@@ -26,7 +26,7 @@ class Post extends BasePost
 	 */
 	public function map(array $inflators = []) : array
 	{
-		$user = [
+		$post = [
 			'id' => $this->getId(),
 			'title' => $this->getTitle(),
 			'description' => $this->getDescription(),
@@ -40,11 +40,11 @@ class Post extends BasePost
 
 		if (isset($inflators['user']))
 		{
-			$user['user'] = $this->getUser()->map();
+			$post['user'] = $this->getUser()->map();
 
-			unset($user['user_id']);
+			unset($post['user_id']);
 		}
 
-		return $user;
+		return $post;
 	}
 }
