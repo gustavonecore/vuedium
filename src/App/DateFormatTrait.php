@@ -2,6 +2,9 @@
 
 use DateTimeInterface;
 
+/**
+ * Trait to ensure date format
+ */
 trait DateFormatTrait
 {
 	/**
