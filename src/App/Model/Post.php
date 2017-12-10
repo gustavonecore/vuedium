@@ -21,12 +21,12 @@ class Post extends BasePost
 
 	/**
 	 * Map the data to the proper form
-	 *
+	 * @param array $inflators  List of inflators
 	 * @return array
 	 */
-	public function map() : array
+	public function map(array $inflators = []) : array
 	{
-		return [
+		$user = [
 			'id' => $this->getId(),
 			'title' => $this->getTitle(),
 			'description' => $this->getDescription(),
@@ -37,5 +37,14 @@ class Post extends BasePost
 			'deleted_dt' => $this->toW3cDate($this->getDeletedDt()),
 			'user_id' => $this->getUserId(),
 		];
+
+		if (isset($inflators['user']))
+		{
+			$user['user'] = $this->getUser()->map();
+
+			unset($user['user_id']);
+		}
+
+		return $user;
 	}
 }

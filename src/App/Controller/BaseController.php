@@ -7,7 +7,6 @@ use Leftaro\Core\Controller\AbstractController;
 use Leftaro\App\Exception\MissingParameterException;
 use Leftaro\App\Exception\InvalidTokenException;
 use Leftaro\App\Model\TokenQuery;
-use Leftaro\App\Model\UserQuery;
 use Propel\Runtime\Exception\EntityNotFoundException;
 use RuntimeException;
 use Zend\Diactoros\{Response, ServerRequest};
@@ -57,7 +56,13 @@ class BaseController extends AbstractController
 			{
 				$token = TokenQuery::create()->requireOneById($accessToken);
 
-				$this->authenticatedUser = UserQuery::create()->requireOneById($token->getUserId())->map();
+				$this->authenticatedUser = $token->getUser()->map();
+
+				$expireDt = clone $token->getExpireDt();
+
+				$token->setExpireDt($expireDt->modify('+2 weeks'));
+
+				$token->save();
 			}
 			catch (EntityNotFoundException $e)
 			{

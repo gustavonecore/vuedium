@@ -16,6 +16,8 @@ class SearchPostsHandler implements HandlerInterface
 
 		$filters = $command->getFilters();
 
+		$inflators = isset($command->getOptions()['inflators']) ? $command->getOptions()['inflators'] : [];
+
 		if (isset($filters['slug']))
 		{
 			$postQuery = $postQuery->filterBySlug($filters['slug']);
@@ -47,7 +49,7 @@ class SearchPostsHandler implements HandlerInterface
 
 		foreach ($postQuery->find() as $post)
 		{
-			$posts[] = $post->map();
+			$posts[] = $post->map($inflators);
 		}
 
 		return [

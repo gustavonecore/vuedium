@@ -40,7 +40,10 @@ class PostController extends BaseController
 				}
 			}
 
-			$posts = $this->bus->searchPosts([$identifier => $postId])['posts'];
+			$posts = $this->bus->searchPosts(
+				[$identifier => $postId],
+				['inflators' => $request->getAttribute('inflators')]
+			)['posts'];
 
 			if ($posts === [])
 			{
@@ -62,7 +65,10 @@ class PostController extends BaseController
 	 */
 	public function getCollectionAction(ServerRequest $request, Response $response) : Response
 	{
-		$posts = $this->bus->searchPosts()['posts'];
+		$posts = $this->bus->searchPosts(
+			[],
+			['inflators' => $request->getAttribute('inflators')]
+		)['posts'];
 
 		return $this->json([
 			'success' => true,

@@ -3,6 +3,7 @@
 namespace Leftaro\App\Model;
 
 use Leftaro\App\Model\Base\User as BaseUser;
+use Leftaro\App\DateFormatTrait;
 
 /**
  * Skeleton subclass for representing a row from the 'user' table.
@@ -16,19 +17,23 @@ use Leftaro\App\Model\Base\User as BaseUser;
  */
 class User extends BaseUser
 {
+	use DateFormatTrait;
+
 	/**
 	 * Map the data to the proper form
-	 *
+	 * @param array $inflators  List of inflators
 	 * @return array
 	 */
-	public function map() : array
+	public function map(array $inflators = []) : array
 	{
-		return [
+		$user = [
 			'id' => $this->getId(),
 			'fidrt_name' => $this->getFirstName(),
 			'last_name' => $this->getLastName(),
 			'email' => $this->getEmail(),
-			'created_dt' => $this->getCreatedDt(),
+			'created_dt' => $this->toW3cDate($this->getCreatedDt()),
 		];
+
+		return $user;
 	}
 }

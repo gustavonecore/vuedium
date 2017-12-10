@@ -17,6 +17,7 @@ return [
 		'before' => [
 			\Leftaro\Core\Middleware\RouteMiddleware::class,
 			\Leftaro\App\Middleware\BodyParserMiddleware::class,
+			\Leftaro\App\Middleware\InflatorsMiddleware::class,
 			\Leftaro\App\Middleware\AuthMiddleware::class,
 		],
 		'after' => [
