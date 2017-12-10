@@ -4,7 +4,7 @@ use Cocur\Slugify\Slugify;
 use Exception;
 use Leftaro\App\Handler\HandlerInterface;
 use Leftaro\App\Command\Post\CreatePostCommand;
-USE Leftaro\App\Exception\SlugAlreadyExistsException;
+use Leftaro\App\Exception\SlugAlreadyExistsException;
 use Leftaro\App\Model\Post;
 use Leftaro\App\Model\PostQuery;
 

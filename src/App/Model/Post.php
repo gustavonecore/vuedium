@@ -29,8 +29,10 @@ class Post extends BasePost
 			'description' => $this->getDescription(),
 			'slug' => $this->getSlug(),
 			'created_dt' => $this->getCreatedDt(),
+			'updated_dt' => $this->getUpdatedDt(),
 			'published_dt' => $this->getPublishedDt(),
 			'deleted_dt' => $this->getDeletedDt(),
+			'user_id' => $this->getUserId(),
 		];
 	}
 }

@@ -20,13 +20,16 @@ class SearchPostsHandler implements HandlerInterface
 		{
 			$postQuery = $postQuery->filterBySlug($filters['slug']);
 		}
+		else if (isset($filters['id']))
+		{
+			$postQuery = $postQuery->filterById($filters['id']);
+		}
 		else
 		{
 			if (isset($filters['user_id']))
 			{
 				$postQuery = $postQuery->filterByUserId($filters['user_id']);
 			}
-
 
 			if (isset($filters['title']))
 			{

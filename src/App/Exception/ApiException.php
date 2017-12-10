@@ -13,6 +13,7 @@ class ApiException extends Exception
 	const INVALID_TOKEN = 4;
 	const RESOURCE_NOT_FOUND = 5;
 	const SLUG_ALREADY_EXISTS = 6;
+	const ENTITY_ALREADY_DELETED = 7;
 
 	/**
 	 * Get the proper HTTP status code
