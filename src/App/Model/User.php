@@ -28,7 +28,7 @@ class User extends BaseUser
 	{
 		$user = [
 			'id' => $this->getId(),
-			'fidrt_name' => $this->getFirstName(),
+			'first_name' => $this->getFirstName(),
 			'last_name' => $this->getLastName(),
 			'email' => $this->getEmail(),
 			'created_dt' => $this->toW3cDate($this->getCreatedDt()),
