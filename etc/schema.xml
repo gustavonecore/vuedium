@@ -49,6 +49,7 @@
     <column name="first_name" phpName="FirstName" type="VARCHAR" size="45" required="true"/>
     <column name="last_name" phpName="LastName" type="VARCHAR" size="45"/>
     <column name="email" phpName="Email" type="VARCHAR" size="50" required="true"/>
+	<column name="password" phpName="Password" type="VARCHAR" size="50" required="true"/>
     <column name="created_dt" phpName="CreatedDt" type="TIMESTAMP"/>
     <unique name="email_UNIQUE">
       <unique-column name="email"/>

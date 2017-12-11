@@ -1,6 +1,8 @@
 <?php namespace Leftaro\App\Handler\Auth;
 
 use Exception;
+use Leftaro\App\Exception\ResourceNotFoundException;
+use Leftaro\App\Exception\AuthenticationException;
 use Leftaro\App\Handler\HandlerInterface;
 use Leftaro\App\Command\Auth\AuthenticateCommand;
 use Leftaro\App\Model\UserQuery;
@@ -16,16 +18,17 @@ class AuthenticateHandler implements HandlerInterface
 
 		if (!$user)
 		{
-			throw new Exception('User not found for email ' . $command->getUsername());
+			throw new ResourceNotFoundException('user for ' . $command->getUsername());
 		}
 
 		if (!password_verify($command->getPassword(), $user->getPassword()))
 		{
-			throw new Exception('Invalid credentials');
+			throw new AuthenticationException;
 		}
 
 		return [
-			'user' => $user->toArray(),
+			'user' => $user->map(),
+			'token' => $user->getToken()->map(),
 		];
 	}
 }

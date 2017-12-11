@@ -14,6 +14,7 @@ class ApiException extends Exception
 	const RESOURCE_NOT_FOUND = 5;
 	const SLUG_ALREADY_EXISTS = 6;
 	const ENTITY_ALREADY_DELETED = 7;
+	const AUTHENTICATION_ERROR = 8;
 
 	/**
 	 * Get the proper HTTP status code
