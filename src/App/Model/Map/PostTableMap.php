@@ -59,7 +59,7 @@ class PostTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 9;
+    const NUM_COLUMNS = 10;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class PostTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 9;
+    const NUM_HYDRATE_COLUMNS = 10;
 
     /**
      * the column name for the id field
@@ -117,6 +117,11 @@ class PostTableMap extends TableMap
     const COL_USER_ID = 'post.user_id';
 
     /**
+     * the column name for the image_url field
+     */
+    const COL_IMAGE_URL = 'post.image_url';
+
+    /**
      * The default string format for model objects of the related table
      */
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -128,11 +133,11 @@ class PostTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Slug', 'Title', 'Description', 'PublishedDt', 'CreatedDt', 'UpdatedDt', 'DeletedDt', 'UserId', ),
-        self::TYPE_CAMELNAME     => array('id', 'slug', 'title', 'description', 'publishedDt', 'createdDt', 'updatedDt', 'deletedDt', 'userId', ),
-        self::TYPE_COLNAME       => array(PostTableMap::COL_ID, PostTableMap::COL_SLUG, PostTableMap::COL_TITLE, PostTableMap::COL_DESCRIPTION, PostTableMap::COL_PUBLISHED_DT, PostTableMap::COL_CREATED_DT, PostTableMap::COL_UPDATED_DT, PostTableMap::COL_DELETED_DT, PostTableMap::COL_USER_ID, ),
-        self::TYPE_FIELDNAME     => array('id', 'slug', 'title', 'description', 'published_dt', 'created_dt', 'updated_dt', 'deleted_dt', 'user_id', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        self::TYPE_PHPNAME       => array('Id', 'Slug', 'Title', 'Description', 'PublishedDt', 'CreatedDt', 'UpdatedDt', 'DeletedDt', 'UserId', 'ImageUrl', ),
+        self::TYPE_CAMELNAME     => array('id', 'slug', 'title', 'description', 'publishedDt', 'createdDt', 'updatedDt', 'deletedDt', 'userId', 'imageUrl', ),
+        self::TYPE_COLNAME       => array(PostTableMap::COL_ID, PostTableMap::COL_SLUG, PostTableMap::COL_TITLE, PostTableMap::COL_DESCRIPTION, PostTableMap::COL_PUBLISHED_DT, PostTableMap::COL_CREATED_DT, PostTableMap::COL_UPDATED_DT, PostTableMap::COL_DELETED_DT, PostTableMap::COL_USER_ID, PostTableMap::COL_IMAGE_URL, ),
+        self::TYPE_FIELDNAME     => array('id', 'slug', 'title', 'description', 'published_dt', 'created_dt', 'updated_dt', 'deleted_dt', 'user_id', 'image_url', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
     /**
@@ -142,11 +147,11 @@ class PostTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Slug' => 1, 'Title' => 2, 'Description' => 3, 'PublishedDt' => 4, 'CreatedDt' => 5, 'UpdatedDt' => 6, 'DeletedDt' => 7, 'UserId' => 8, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'slug' => 1, 'title' => 2, 'description' => 3, 'publishedDt' => 4, 'createdDt' => 5, 'updatedDt' => 6, 'deletedDt' => 7, 'userId' => 8, ),
-        self::TYPE_COLNAME       => array(PostTableMap::COL_ID => 0, PostTableMap::COL_SLUG => 1, PostTableMap::COL_TITLE => 2, PostTableMap::COL_DESCRIPTION => 3, PostTableMap::COL_PUBLISHED_DT => 4, PostTableMap::COL_CREATED_DT => 5, PostTableMap::COL_UPDATED_DT => 6, PostTableMap::COL_DELETED_DT => 7, PostTableMap::COL_USER_ID => 8, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'slug' => 1, 'title' => 2, 'description' => 3, 'published_dt' => 4, 'created_dt' => 5, 'updated_dt' => 6, 'deleted_dt' => 7, 'user_id' => 8, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Slug' => 1, 'Title' => 2, 'Description' => 3, 'PublishedDt' => 4, 'CreatedDt' => 5, 'UpdatedDt' => 6, 'DeletedDt' => 7, 'UserId' => 8, 'ImageUrl' => 9, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'slug' => 1, 'title' => 2, 'description' => 3, 'publishedDt' => 4, 'createdDt' => 5, 'updatedDt' => 6, 'deletedDt' => 7, 'userId' => 8, 'imageUrl' => 9, ),
+        self::TYPE_COLNAME       => array(PostTableMap::COL_ID => 0, PostTableMap::COL_SLUG => 1, PostTableMap::COL_TITLE => 2, PostTableMap::COL_DESCRIPTION => 3, PostTableMap::COL_PUBLISHED_DT => 4, PostTableMap::COL_CREATED_DT => 5, PostTableMap::COL_UPDATED_DT => 6, PostTableMap::COL_DELETED_DT => 7, PostTableMap::COL_USER_ID => 8, PostTableMap::COL_IMAGE_URL => 9, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'slug' => 1, 'title' => 2, 'description' => 3, 'published_dt' => 4, 'created_dt' => 5, 'updated_dt' => 6, 'deleted_dt' => 7, 'user_id' => 8, 'image_url' => 9, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
     /**
@@ -175,6 +180,7 @@ class PostTableMap extends TableMap
         $this->addColumn('updated_dt', 'UpdatedDt', 'TIMESTAMP', false, null, null);
         $this->addColumn('deleted_dt', 'DeletedDt', 'TIMESTAMP', false, null, null);
         $this->addForeignKey('user_id', 'UserId', 'INTEGER', 'user', 'id', true, 10, null);
+        $this->addColumn('image_url', 'ImageUrl', 'VARCHAR', false, 500, null);
     } // initialize()
 
     /**
@@ -341,6 +347,7 @@ class PostTableMap extends TableMap
             $criteria->addSelectColumn(PostTableMap::COL_UPDATED_DT);
             $criteria->addSelectColumn(PostTableMap::COL_DELETED_DT);
             $criteria->addSelectColumn(PostTableMap::COL_USER_ID);
+            $criteria->addSelectColumn(PostTableMap::COL_IMAGE_URL);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.slug');
@@ -351,6 +358,7 @@ class PostTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.updated_dt');
             $criteria->addSelectColumn($alias . '.deleted_dt');
             $criteria->addSelectColumn($alias . '.user_id');
+            $criteria->addSelectColumn($alias . '.image_url');
         }
     }
 

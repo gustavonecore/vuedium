@@ -29,6 +29,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildPostQuery orderByUpdatedDt($order = Criteria::ASC) Order by the updated_dt column
  * @method     ChildPostQuery orderByDeletedDt($order = Criteria::ASC) Order by the deleted_dt column
  * @method     ChildPostQuery orderByUserId($order = Criteria::ASC) Order by the user_id column
+ * @method     ChildPostQuery orderByImageUrl($order = Criteria::ASC) Order by the image_url column
  *
  * @method     ChildPostQuery groupById() Group by the id column
  * @method     ChildPostQuery groupBySlug() Group by the slug column
@@ -39,6 +40,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildPostQuery groupByUpdatedDt() Group by the updated_dt column
  * @method     ChildPostQuery groupByDeletedDt() Group by the deleted_dt column
  * @method     ChildPostQuery groupByUserId() Group by the user_id column
+ * @method     ChildPostQuery groupByImageUrl() Group by the image_url column
  *
  * @method     ChildPostQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildPostQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -71,7 +73,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildPost findOneByCreatedDt(string $created_dt) Return the first ChildPost filtered by the created_dt column
  * @method     ChildPost findOneByUpdatedDt(string $updated_dt) Return the first ChildPost filtered by the updated_dt column
  * @method     ChildPost findOneByDeletedDt(string $deleted_dt) Return the first ChildPost filtered by the deleted_dt column
- * @method     ChildPost findOneByUserId(int $user_id) Return the first ChildPost filtered by the user_id column *
+ * @method     ChildPost findOneByUserId(int $user_id) Return the first ChildPost filtered by the user_id column
+ * @method     ChildPost findOneByImageUrl(string $image_url) Return the first ChildPost filtered by the image_url column *
 
  * @method     ChildPost requirePk($key, ConnectionInterface $con = null) Return the ChildPost by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPost requireOne(ConnectionInterface $con = null) Return the first ChildPost matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -85,6 +88,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildPost requireOneByUpdatedDt(string $updated_dt) Return the first ChildPost filtered by the updated_dt column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPost requireOneByDeletedDt(string $deleted_dt) Return the first ChildPost filtered by the deleted_dt column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPost requireOneByUserId(int $user_id) Return the first ChildPost filtered by the user_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPost requireOneByImageUrl(string $image_url) Return the first ChildPost filtered by the image_url column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildPost[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildPost objects based on current ModelCriteria
  * @method     ChildPost[]|ObjectCollection findById(int $id) Return ChildPost objects filtered by the id column
@@ -96,6 +100,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildPost[]|ObjectCollection findByUpdatedDt(string $updated_dt) Return ChildPost objects filtered by the updated_dt column
  * @method     ChildPost[]|ObjectCollection findByDeletedDt(string $deleted_dt) Return ChildPost objects filtered by the deleted_dt column
  * @method     ChildPost[]|ObjectCollection findByUserId(int $user_id) Return ChildPost objects filtered by the user_id column
+ * @method     ChildPost[]|ObjectCollection findByImageUrl(string $image_url) Return ChildPost objects filtered by the image_url column
  * @method     ChildPost[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -194,7 +199,7 @@ abstract class PostQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, slug, title, description, published_dt, created_dt, updated_dt, deleted_dt, user_id FROM post WHERE id = :p0';
+        $sql = 'SELECT id, slug, title, description, published_dt, created_dt, updated_dt, deleted_dt, user_id, image_url FROM post WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -613,6 +618,31 @@ abstract class PostQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(PostTableMap::COL_USER_ID, $userId, $comparison);
+    }
+
+    /**
+     * Filter the query on the image_url column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByImageUrl('fooValue');   // WHERE image_url = 'fooValue'
+     * $query->filterByImageUrl('%fooValue%', Criteria::LIKE); // WHERE image_url LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $imageUrl The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildPostQuery The current query, for fluid interface
+     */
+    public function filterByImageUrl($imageUrl = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($imageUrl)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(PostTableMap::COL_IMAGE_URL, $imageUrl, $comparison);
     }
 
     /**

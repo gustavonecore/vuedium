@@ -59,7 +59,7 @@ class UserTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 5;
+    const NUM_COLUMNS = 8;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class UserTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 5;
+    const NUM_HYDRATE_COLUMNS = 8;
 
     /**
      * the column name for the id field
@@ -87,6 +87,11 @@ class UserTableMap extends TableMap
     const COL_LAST_NAME = 'user.last_name';
 
     /**
+     * the column name for the password field
+     */
+    const COL_PASSWORD = 'user.password';
+
+    /**
      * the column name for the email field
      */
     const COL_EMAIL = 'user.email';
@@ -95,6 +100,16 @@ class UserTableMap extends TableMap
      * the column name for the created_dt field
      */
     const COL_CREATED_DT = 'user.created_dt';
+
+    /**
+     * the column name for the updated_dt field
+     */
+    const COL_UPDATED_DT = 'user.updated_dt';
+
+    /**
+     * the column name for the avatar field
+     */
+    const COL_AVATAR = 'user.avatar';
 
     /**
      * The default string format for model objects of the related table
@@ -108,11 +123,11 @@ class UserTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'FirstName', 'LastName', 'Email', 'CreatedDt', ),
-        self::TYPE_CAMELNAME     => array('id', 'firstName', 'lastName', 'email', 'createdDt', ),
-        self::TYPE_COLNAME       => array(UserTableMap::COL_ID, UserTableMap::COL_FIRST_NAME, UserTableMap::COL_LAST_NAME, UserTableMap::COL_EMAIL, UserTableMap::COL_CREATED_DT, ),
-        self::TYPE_FIELDNAME     => array('id', 'first_name', 'last_name', 'email', 'created_dt', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
+        self::TYPE_PHPNAME       => array('Id', 'FirstName', 'LastName', 'Password', 'Email', 'CreatedDt', 'UpdatedDt', 'Avatar', ),
+        self::TYPE_CAMELNAME     => array('id', 'firstName', 'lastName', 'password', 'email', 'createdDt', 'updatedDt', 'avatar', ),
+        self::TYPE_COLNAME       => array(UserTableMap::COL_ID, UserTableMap::COL_FIRST_NAME, UserTableMap::COL_LAST_NAME, UserTableMap::COL_PASSWORD, UserTableMap::COL_EMAIL, UserTableMap::COL_CREATED_DT, UserTableMap::COL_UPDATED_DT, UserTableMap::COL_AVATAR, ),
+        self::TYPE_FIELDNAME     => array('id', 'first_name', 'last_name', 'password', 'email', 'created_dt', 'updated_dt', 'avatar', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -122,11 +137,11 @@ class UserTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'FirstName' => 1, 'LastName' => 2, 'Email' => 3, 'CreatedDt' => 4, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'firstName' => 1, 'lastName' => 2, 'email' => 3, 'createdDt' => 4, ),
-        self::TYPE_COLNAME       => array(UserTableMap::COL_ID => 0, UserTableMap::COL_FIRST_NAME => 1, UserTableMap::COL_LAST_NAME => 2, UserTableMap::COL_EMAIL => 3, UserTableMap::COL_CREATED_DT => 4, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'first_name' => 1, 'last_name' => 2, 'email' => 3, 'created_dt' => 4, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'FirstName' => 1, 'LastName' => 2, 'Password' => 3, 'Email' => 4, 'CreatedDt' => 5, 'UpdatedDt' => 6, 'Avatar' => 7, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'firstName' => 1, 'lastName' => 2, 'password' => 3, 'email' => 4, 'createdDt' => 5, 'updatedDt' => 6, 'avatar' => 7, ),
+        self::TYPE_COLNAME       => array(UserTableMap::COL_ID => 0, UserTableMap::COL_FIRST_NAME => 1, UserTableMap::COL_LAST_NAME => 2, UserTableMap::COL_PASSWORD => 3, UserTableMap::COL_EMAIL => 4, UserTableMap::COL_CREATED_DT => 5, UserTableMap::COL_UPDATED_DT => 6, UserTableMap::COL_AVATAR => 7, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'first_name' => 1, 'last_name' => 2, 'password' => 3, 'email' => 4, 'created_dt' => 5, 'updated_dt' => 6, 'avatar' => 7, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -149,8 +164,11 @@ class UserTableMap extends TableMap
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, 10, null);
         $this->addColumn('first_name', 'FirstName', 'VARCHAR', true, 45, null);
         $this->addColumn('last_name', 'LastName', 'VARCHAR', false, 45, null);
+        $this->addColumn('password', 'Password', 'VARCHAR', true, 50, null);
         $this->addColumn('email', 'Email', 'VARCHAR', true, 50, null);
-        $this->addColumn('created_dt', 'CreatedDt', 'TIMESTAMP', false, null, null);
+        $this->addColumn('created_dt', 'CreatedDt', 'TIMESTAMP', true, null, null);
+        $this->addColumn('updated_dt', 'UpdatedDt', 'TIMESTAMP', false, null, null);
+        $this->addColumn('avatar', 'Avatar', 'VARCHAR', false, 500, null);
     } // initialize()
 
     /**
@@ -318,14 +336,20 @@ class UserTableMap extends TableMap
             $criteria->addSelectColumn(UserTableMap::COL_ID);
             $criteria->addSelectColumn(UserTableMap::COL_FIRST_NAME);
             $criteria->addSelectColumn(UserTableMap::COL_LAST_NAME);
+            $criteria->addSelectColumn(UserTableMap::COL_PASSWORD);
             $criteria->addSelectColumn(UserTableMap::COL_EMAIL);
             $criteria->addSelectColumn(UserTableMap::COL_CREATED_DT);
+            $criteria->addSelectColumn(UserTableMap::COL_UPDATED_DT);
+            $criteria->addSelectColumn(UserTableMap::COL_AVATAR);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.first_name');
             $criteria->addSelectColumn($alias . '.last_name');
+            $criteria->addSelectColumn($alias . '.password');
             $criteria->addSelectColumn($alias . '.email');
             $criteria->addSelectColumn($alias . '.created_dt');
+            $criteria->addSelectColumn($alias . '.updated_dt');
+            $criteria->addSelectColumn($alias . '.avatar');
         }
     }
 

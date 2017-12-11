@@ -11,10 +11,10 @@ return [
     'propel' => [
         'paths' => [
             // The directory where Propel expects to find your `schema.xml` file.
-            'schemaDir' => 'etc',
+            'schemaDir' => 'config/local/propel',
 
             // The directory where Propel should output generated object model classes.
-            'phpDir' => 'src/App/Model',
+            'phpDir' => 'config/local/propel',
         ],
         /*
         'database' => [

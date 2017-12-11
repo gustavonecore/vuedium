@@ -153,7 +153,7 @@ class TokenTableMap extends TableMap
         $this->setPhpName('Token');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Leftaro\\App\\Model\\Token');
-        $this->setPackage('Leftaro.App.Model');
+		$this->setPackage('Leftaro.App.Model');
         $this->setUseIdGenerator(false);
         // columns
         $this->addPrimaryKey('id', 'Id', 'CHAR', true, 22, null);

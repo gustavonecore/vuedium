@@ -127,6 +127,13 @@ abstract class Post implements ActiveRecordInterface
     protected $user_id;
 
     /**
+     * The value for the image_url field.
+     *
+     * @var        string
+     */
+    protected $image_url;
+
+    /**
      * @var        ChildUser
      */
     protected $aUser;
@@ -495,6 +502,16 @@ abstract class Post implements ActiveRecordInterface
     }
 
     /**
+     * Get the [image_url] column value.
+     *
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->image_url;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -679,6 +696,26 @@ abstract class Post implements ActiveRecordInterface
     } // setUserId()
 
     /**
+     * Set the value of [image_url] column.
+     *
+     * @param string $v new value
+     * @return $this|\Leftaro\App\Model\Post The current object (for fluent API support)
+     */
+    public function setImageUrl($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->image_url !== $v) {
+            $this->image_url = $v;
+            $this->modifiedColumns[PostTableMap::COL_IMAGE_URL] = true;
+        }
+
+        return $this;
+    } // setImageUrl()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -752,6 +789,9 @@ abstract class Post implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : PostTableMap::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->user_id = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : PostTableMap::translateFieldName('ImageUrl', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->image_url = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -760,7 +800,7 @@ abstract class Post implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 9; // 9 = PostTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 10; // 10 = PostTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Leftaro\\App\\Model\\Post'), 0, $e);
@@ -1004,6 +1044,9 @@ abstract class Post implements ActiveRecordInterface
         if ($this->isColumnModified(PostTableMap::COL_USER_ID)) {
             $modifiedColumns[':p' . $index++]  = 'user_id';
         }
+        if ($this->isColumnModified(PostTableMap::COL_IMAGE_URL)) {
+            $modifiedColumns[':p' . $index++]  = 'image_url';
+        }
 
         $sql = sprintf(
             'INSERT INTO post (%s) VALUES (%s)',
@@ -1041,6 +1084,9 @@ abstract class Post implements ActiveRecordInterface
                         break;
                     case 'user_id':
                         $stmt->bindValue($identifier, $this->user_id, PDO::PARAM_INT);
+                        break;
+                    case 'image_url':
+                        $stmt->bindValue($identifier, $this->image_url, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1131,6 +1177,9 @@ abstract class Post implements ActiveRecordInterface
             case 8:
                 return $this->getUserId();
                 break;
+            case 9:
+                return $this->getImageUrl();
+                break;
             default:
                 return null;
                 break;
@@ -1170,6 +1219,7 @@ abstract class Post implements ActiveRecordInterface
             $keys[6] => $this->getUpdatedDt(),
             $keys[7] => $this->getDeletedDt(),
             $keys[8] => $this->getUserId(),
+            $keys[9] => $this->getImageUrl(),
         );
         if ($result[$keys[4]] instanceof \DateTime) {
             $result[$keys[4]] = $result[$keys[4]]->format('c');
@@ -1269,6 +1319,9 @@ abstract class Post implements ActiveRecordInterface
             case 8:
                 $this->setUserId($value);
                 break;
+            case 9:
+                $this->setImageUrl($value);
+                break;
         } // switch()
 
         return $this;
@@ -1321,6 +1374,9 @@ abstract class Post implements ActiveRecordInterface
         }
         if (array_key_exists($keys[8], $arr)) {
             $this->setUserId($arr[$keys[8]]);
+        }
+        if (array_key_exists($keys[9], $arr)) {
+            $this->setImageUrl($arr[$keys[9]]);
         }
     }
 
@@ -1389,6 +1445,9 @@ abstract class Post implements ActiveRecordInterface
         }
         if ($this->isColumnModified(PostTableMap::COL_USER_ID)) {
             $criteria->add(PostTableMap::COL_USER_ID, $this->user_id);
+        }
+        if ($this->isColumnModified(PostTableMap::COL_IMAGE_URL)) {
+            $criteria->add(PostTableMap::COL_IMAGE_URL, $this->image_url);
         }
 
         return $criteria;
@@ -1484,6 +1543,7 @@ abstract class Post implements ActiveRecordInterface
         $copyObj->setUpdatedDt($this->getUpdatedDt());
         $copyObj->setDeletedDt($this->getDeletedDt());
         $copyObj->setUserId($this->getUserId());
+        $copyObj->setImageUrl($this->getImageUrl());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1582,6 +1642,7 @@ abstract class Post implements ActiveRecordInterface
         $this->updated_dt = null;
         $this->deleted_dt = null;
         $this->user_id = null;
+        $this->image_url = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

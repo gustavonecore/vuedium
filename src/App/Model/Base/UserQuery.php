@@ -23,14 +23,20 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUserQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildUserQuery orderByFirstName($order = Criteria::ASC) Order by the first_name column
  * @method     ChildUserQuery orderByLastName($order = Criteria::ASC) Order by the last_name column
+ * @method     ChildUserQuery orderByPassword($order = Criteria::ASC) Order by the password column
  * @method     ChildUserQuery orderByEmail($order = Criteria::ASC) Order by the email column
  * @method     ChildUserQuery orderByCreatedDt($order = Criteria::ASC) Order by the created_dt column
+ * @method     ChildUserQuery orderByUpdatedDt($order = Criteria::ASC) Order by the updated_dt column
+ * @method     ChildUserQuery orderByAvatar($order = Criteria::ASC) Order by the avatar column
  *
  * @method     ChildUserQuery groupById() Group by the id column
  * @method     ChildUserQuery groupByFirstName() Group by the first_name column
  * @method     ChildUserQuery groupByLastName() Group by the last_name column
+ * @method     ChildUserQuery groupByPassword() Group by the password column
  * @method     ChildUserQuery groupByEmail() Group by the email column
  * @method     ChildUserQuery groupByCreatedDt() Group by the created_dt column
+ * @method     ChildUserQuery groupByUpdatedDt() Group by the updated_dt column
+ * @method     ChildUserQuery groupByAvatar() Group by the avatar column
  *
  * @method     ChildUserQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildUserQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -68,8 +74,11 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUser findOneById(int $id) Return the first ChildUser filtered by the id column
  * @method     ChildUser findOneByFirstName(string $first_name) Return the first ChildUser filtered by the first_name column
  * @method     ChildUser findOneByLastName(string $last_name) Return the first ChildUser filtered by the last_name column
+ * @method     ChildUser findOneByPassword(string $password) Return the first ChildUser filtered by the password column
  * @method     ChildUser findOneByEmail(string $email) Return the first ChildUser filtered by the email column
- * @method     ChildUser findOneByCreatedDt(string $created_dt) Return the first ChildUser filtered by the created_dt column *
+ * @method     ChildUser findOneByCreatedDt(string $created_dt) Return the first ChildUser filtered by the created_dt column
+ * @method     ChildUser findOneByUpdatedDt(string $updated_dt) Return the first ChildUser filtered by the updated_dt column
+ * @method     ChildUser findOneByAvatar(string $avatar) Return the first ChildUser filtered by the avatar column *
 
  * @method     ChildUser requirePk($key, ConnectionInterface $con = null) Return the ChildUser by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOne(ConnectionInterface $con = null) Return the first ChildUser matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -77,15 +86,21 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUser requireOneById(int $id) Return the first ChildUser filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOneByFirstName(string $first_name) Return the first ChildUser filtered by the first_name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOneByLastName(string $last_name) Return the first ChildUser filtered by the last_name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUser requireOneByPassword(string $password) Return the first ChildUser filtered by the password column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOneByEmail(string $email) Return the first ChildUser filtered by the email column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOneByCreatedDt(string $created_dt) Return the first ChildUser filtered by the created_dt column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUser requireOneByUpdatedDt(string $updated_dt) Return the first ChildUser filtered by the updated_dt column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUser requireOneByAvatar(string $avatar) Return the first ChildUser filtered by the avatar column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUser[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildUser objects based on current ModelCriteria
  * @method     ChildUser[]|ObjectCollection findById(int $id) Return ChildUser objects filtered by the id column
  * @method     ChildUser[]|ObjectCollection findByFirstName(string $first_name) Return ChildUser objects filtered by the first_name column
  * @method     ChildUser[]|ObjectCollection findByLastName(string $last_name) Return ChildUser objects filtered by the last_name column
+ * @method     ChildUser[]|ObjectCollection findByPassword(string $password) Return ChildUser objects filtered by the password column
  * @method     ChildUser[]|ObjectCollection findByEmail(string $email) Return ChildUser objects filtered by the email column
  * @method     ChildUser[]|ObjectCollection findByCreatedDt(string $created_dt) Return ChildUser objects filtered by the created_dt column
+ * @method     ChildUser[]|ObjectCollection findByUpdatedDt(string $updated_dt) Return ChildUser objects filtered by the updated_dt column
+ * @method     ChildUser[]|ObjectCollection findByAvatar(string $avatar) Return ChildUser objects filtered by the avatar column
  * @method     ChildUser[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -184,7 +199,7 @@ abstract class UserQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, first_name, last_name, email, created_dt FROM user WHERE id = :p0';
+        $sql = 'SELECT id, first_name, last_name, password, email, created_dt, updated_dt, avatar FROM user WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -366,6 +381,31 @@ abstract class UserQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the password column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPassword('fooValue');   // WHERE password = 'fooValue'
+     * $query->filterByPassword('%fooValue%', Criteria::LIKE); // WHERE password LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $password The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUserQuery The current query, for fluid interface
+     */
+    public function filterByPassword($password = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($password)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UserTableMap::COL_PASSWORD, $password, $comparison);
+    }
+
+    /**
      * Filter the query on the email column
      *
      * Example usage:
@@ -431,6 +471,74 @@ abstract class UserQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(UserTableMap::COL_CREATED_DT, $createdDt, $comparison);
+    }
+
+    /**
+     * Filter the query on the updated_dt column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByUpdatedDt('2011-03-14'); // WHERE updated_dt = '2011-03-14'
+     * $query->filterByUpdatedDt('now'); // WHERE updated_dt = '2011-03-14'
+     * $query->filterByUpdatedDt(array('max' => 'yesterday')); // WHERE updated_dt > '2011-03-13'
+     * </code>
+     *
+     * @param     mixed $updatedDt The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUserQuery The current query, for fluid interface
+     */
+    public function filterByUpdatedDt($updatedDt = null, $comparison = null)
+    {
+        if (is_array($updatedDt)) {
+            $useMinMax = false;
+            if (isset($updatedDt['min'])) {
+                $this->addUsingAlias(UserTableMap::COL_UPDATED_DT, $updatedDt['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($updatedDt['max'])) {
+                $this->addUsingAlias(UserTableMap::COL_UPDATED_DT, $updatedDt['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UserTableMap::COL_UPDATED_DT, $updatedDt, $comparison);
+    }
+
+    /**
+     * Filter the query on the avatar column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByAvatar('fooValue');   // WHERE avatar = 'fooValue'
+     * $query->filterByAvatar('%fooValue%', Criteria::LIKE); // WHERE avatar LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $avatar The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUserQuery The current query, for fluid interface
+     */
+    public function filterByAvatar($avatar = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($avatar)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UserTableMap::COL_AVATAR, $avatar, $comparison);
     }
 
     /**

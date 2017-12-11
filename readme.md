@@ -1,7 +1,7 @@
-Leftaro, a micro Web Framework
+API for Vuedium application
 =============================
 
-PSR-7, PSR-11 and PSR-15 compliant micro framework for PHP 7.
+Powered by Leftaro a PSR-7, PSR-11 and PSR-15 compliant micro framework for PHP 7.
 
 Get ready
 --------------
@@ -10,25 +10,25 @@ Get ready
 - Copy the folder `config/base` into `config/local`
 - Update the settings
 - Run the local server for development with `php bin/server.php`
-- Try to run the example static routes defined in `config/local/routes.php`
-  - http://0.0.0.0:8000/html
-  - http://0.0.0.0:8000/html/10
-  - http://0.0.0.0:8000/text
-  - http://0.0.0.0:8000/json
-- Try to run the smart-discover endpoints like:
-  - http://0.0.0.0:8000/smart/10/discover/100/resource/my-resource-id
 
-Current status
+How to Propel-ORM
 --------------
 
-- [x] Add PSR-15 middleware approach
-- [x] Add PSR-7 Http library
-- [x] Add PSR-11 Container
-- [x] Add configuration loader class
-- [x] Add built-in server for development mode
-- [x] Add FastRoute for fixed routes by file
-- [x] Add automatic route resolver by URI/Controller
-- [ ] Add utility commands to
-  - [ ] Migrate database
-  - [ ] Create an empty project
+- Update generated model classes from updated etc/schema.xml
+
+`./propel build --schema-dir=etc --output-dir=src/App/Orm --disable-namespace-auto-package --config-dir=config/local/`
+
+- Update the schema.xml from the database
+`./propel database:reverse --config-dir=config/local/ --namespace="Leftaro\App\Orm"`
+This will create a new file inside the `generated-reversed-database`
+Then move the created file inside etc/ and replace the existing one, then you are ready to update all your generated classes.
+
+- Run migrations
+  1) Update your database
+  2) Execute the diff tool `./propel diff --schema-dir=etc --config-dir=config/local/`
+  This will generate a new migration php file inside of `generated-migrations` folder.
+  3) Run the migration `./propel --config-dir=config/local/ migrate`
+
+
+
 

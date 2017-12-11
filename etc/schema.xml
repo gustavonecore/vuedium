@@ -10,6 +10,7 @@
     <column name="updated_dt" phpName="UpdatedDt" type="TIMESTAMP"/>
     <column name="deleted_dt" phpName="DeletedDt" type="TIMESTAMP"/>
     <column name="user_id" phpName="UserId" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="image_url" phpName="ImageUrl" type="VARCHAR" size="500"/>
     <foreign-key foreignTable="user" name="fk_post_user1">
       <reference local="user_id" foreign="id"/>
     </foreign-key>
@@ -48,9 +49,11 @@
     <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="first_name" phpName="FirstName" type="VARCHAR" size="45" required="true"/>
     <column name="last_name" phpName="LastName" type="VARCHAR" size="45"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="50" required="true"/>
     <column name="email" phpName="Email" type="VARCHAR" size="50" required="true"/>
-	<column name="password" phpName="Password" type="VARCHAR" size="50" required="true"/>
-    <column name="created_dt" phpName="CreatedDt" type="TIMESTAMP"/>
+    <column name="created_dt" phpName="CreatedDt" type="TIMESTAMP" required="true"/>
+    <column name="updated_dt" phpName="UpdatedDt" type="TIMESTAMP"/>
+    <column name="avatar" phpName="Avatar" type="VARCHAR" size="500"/>
     <unique name="email_UNIQUE">
       <unique-column name="email"/>
     </unique>
