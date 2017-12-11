@@ -21,6 +21,7 @@ return [
 			\Leftaro\App\Middleware\AuthMiddleware::class,
 		],
 		'after' => [
+			\Leftaro\App\Middleware\CorsMiddleware::class,
 			\Leftaro\App\Middleware\LoggerMiddleware::class,
 		],
 	],

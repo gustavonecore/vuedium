@@ -10,6 +10,7 @@ use Leftaro\App\Model\TokenQuery;
 use Propel\Runtime\Exception\EntityNotFoundException;
 use RuntimeException;
 use Zend\Diactoros\{Response, ServerRequest};
+use Zend\Diactoros\Response\EmptyResponse;
 
 /**
  * Base controller
@@ -115,5 +116,29 @@ class BaseController extends AbstractController
 		{
 			throw new MissingParameterException($e->getMessage());
 		}
+	}
+
+	/**
+	 * Add cors
+	 *
+	 * @param ServerRequest $request
+	 * @param Response $response
+	 * @return Response
+	 */
+	public function optionsCollectionAction(ServerRequest $request, Response $response) : Response
+	{
+		return new EmptyResponse(200);
+	}
+
+	/**
+	 * Add cors
+	 *
+	 * @param ServerRequest $request
+	 * @param Response $response
+	 * @return Response
+	 */
+	public function optionsResourceAction(ServerRequest $request, Response $response) : Response
+	{
+		return new EmptyResponse(200);
 	}
 }

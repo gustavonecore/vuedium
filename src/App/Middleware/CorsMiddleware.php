@@ -18,6 +18,10 @@ class CorsMiddleware implements MiddlewareInterface
 	 */
 	public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next = null) : ResponseInterface
 	{
+		$requiredHeaders = $request->hasHeader('Access-Control-Request-Headers') ? $request->getHeader('Access-Control-Request-Headers')[0] : '*';
+
+		$response = $response->withHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS');
+		$response = $response->withHeader('Access-Control-Allow-Headers', $requiredHeaders);
 		$response = $response->withHeader('Access-Control-Allow-Origin', '*');
 
 		return $next($request, $response);
