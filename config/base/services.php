@@ -16,9 +16,23 @@ use Noodlehaus\Config;
 use Psr\Log\LoggerInterface;
 
 return [
-	'config' => function ()
+	// Base services for auto-wiring
+	Container::class => function(ContainerInterface $container)
 	{
-        return new Config(__DIR__ . '/settings.php');
+		return $container;
+	},
+
+	Dispatcher::class => function (ContainerInterface $container)
+	{
+		return FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) use ($container)
+		{
+			foreach (require_once __DIR__ . '/routes.php' as $route)
+			{
+				list($method, $endpoint, $handlerClass, $handlerMethod) = $route;
+
+				$r->addRoute(strtoupper($method), $endpoint, $handlerClass . '::' . $handlerMethod);
+			}
+		});
 	},
 
 	Config::class => function (ContainerInterface $container)
@@ -38,23 +52,23 @@ return [
 		return $container->get(Logger::class);
 	},
 
+	CommandBus::class => function(ContainerInterface $container)
+	{
+		return $container->get('bus');
+	},
+
+	// Aliases for easy calls
+	'config' => function ()
+	{
+		return new Config(__DIR__ . '/settings.php');
+	},
+
 	'logger' => function (ContainerInterface $container)
 	{
 		return $container->get(Logger::class);
 	},
 
-	Dispatcher::class => function (ContainerInterface $container)
-	{
-		return FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) use ($container)
-		{
-			foreach (require_once __DIR__ . '/routes.php' as $route)
-			{
-				list($method, $endpoint, $handlerClass, $handlerMethod) = $route;
 
-				$r->addRoute(strtoupper($method), $endpoint, $handlerClass . '::' . $handlerMethod);
-			}
-		});
-	},
 
 	'twig' => function (ContainerInterface $container)
 	{
@@ -64,11 +78,6 @@ return [
 		[
 			'cache' => $container->get('config')->get('paths.views_cache'),
 		]);
-	},
-
-	Container::class => function(ContainerInterface $container)
-	{
-		return $container;
 	},
 
 	'database' => function(ContainerInterface $container)
@@ -98,11 +107,6 @@ return [
 			}),
 			new HandleInflector
 		);
-	},
-
-	CommandBus::class => function(ContainerInterface $container)
-	{
-		return $container->get('bus');
 	},
 
 	'bus' => function(ContainerInterface $container)

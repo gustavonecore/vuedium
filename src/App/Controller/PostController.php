@@ -1,7 +1,5 @@
 <?php namespace Leftaro\App\Controller;
 
-use Gcore\Sanitizer\Template\TemplateSanitizer;
-use Gcore\Sanitizer\Template\TemplateInterface;
 use Leftaro\App\Controller\BaseController;
 USE Leftaro\App\Exception\AuthorizedException;
 use Leftaro\App\Exception\ResourceNotFoundException;
