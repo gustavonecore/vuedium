@@ -4,6 +4,7 @@ use Exception;
 use Leftaro\App\Handler\HandlerInterface;
 use Leftaro\App\Command\Post\SearchPostsCommand;
 use Leftaro\App\Model\PostQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
 
 /**
  * Handle the SearchPosts command
@@ -42,8 +43,9 @@ class SearchPostsHandler implements HandlerInterface
 			{
 				$postQuery = $postQuery->filterByTitle($filters['description']);
 			}
-
 		}
+
+		$postQuery = $postQuery->orderByCreatedDt(Criteria::DESC);
 
 		$posts = [];
 
