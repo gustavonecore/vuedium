@@ -49,6 +49,8 @@ class BaseController extends AbstractController
 	 */
 	public function before(ServerRequest $request, Response $response) : Response
 	{
+		$response = parent::before($request, $response);
+
 		$accessToken = $request->getAttribute('access_token');
 
 		if ($accessToken !== null)
